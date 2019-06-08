@@ -17,6 +17,7 @@ DisplayClass::DisplayClass() {
   lcd.createChar (1, clock1);
   lcd.createChar (2, clock2);
   lcd.createChar (3, thermometer);
+  lcd.createChar (4, bluetooth);
 }
 
 void DisplayClass::start() const {
@@ -37,6 +38,9 @@ void DisplayClass::printSymbol(int symbol, int x, int y) const {
       break;
     case THERMOMETER:
       lcd.print (char(3));
+      break;
+    case BLUETOOTH:
+      lcd.print (char(4));
       break;
     default:
       lcd.print (char(0));

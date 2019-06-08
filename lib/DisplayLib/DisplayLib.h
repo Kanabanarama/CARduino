@@ -19,6 +19,7 @@ class DisplayClass {
     static const int BLOCK = 0;
     static const int CLOCK = 1;
     static const int THERMOMETER = 2;
+    static const int BLUETOOTH = 3;
 
 		DisplayClass();
 
@@ -67,6 +68,17 @@ class DisplayClass {
     	0b11111,
     	0b11111,
     	0b01110
+    };
+
+    byte bluetooth[8] = {
+    	0b00100,
+    	0b10110,
+    	0b01101,
+    	0b00110,
+    	0b00110,
+    	0b01101,
+    	0b10110,
+    	0b00100
     };
 
 };
