@@ -20,66 +20,31 @@ class DisplayClass {
     static const int CLOCK = 1;
     static const int THERMOMETER = 2;
     static const int BLUETOOTH = 3;
+		static const int HEART = 4;
+		static const int CALENDAR = 5;
 
 		DisplayClass();
 
-    void DisplayClass::start() const;
+    void start() const;
 		void printText(char* text, int x=0, int y=0) const;
     void printSymbol(int symbol=0, int x=0, int y=0) const;
+		void clear() const;
 
 	private:
 
-    byte block[8] = {
-    	0b11111,
-    	0b11111,
-    	0b11111,
-    	0b11111,
-    	0b11111,
-    	0b11111,
-    	0b11111,
-    	0b11111
-    };
-    byte clock1[8] = {
-    	0b00011,
-    	0b00100,
-    	0b01001,
-    	0b01001,
-    	0b01001,
-    	0b01000,
-    	0b00100,
-    	0b00011
-    };
-    byte clock2[8] = {
-    	0b11000,
-    	0b00100,
-    	0b00010,
-    	0b00010,
-    	0b11010,
-    	0b00010,
-    	0b00100,
-    	0b11000
-    };
-    byte thermometer[8] = {
-    	0b00100,
-    	0b01010,
-    	0b01010,
-    	0b01110,
-    	0b01110,
-    	0b11111,
-    	0b11111,
-    	0b01110
-    };
+		#define I2C_ADDR    0x27
 
-    byte bluetooth[8] = {
-    	0b00100,
-    	0b10110,
-    	0b01101,
-    	0b00110,
-    	0b00110,
-    	0b01101,
-    	0b10110,
-    	0b00100
-    };
+		#define BACKLIGHT_PIN  3
+		#define LED_OFF 1
+		#define LED_ON  0
+
+		#define En_pin  2
+		#define Rw_pin  1
+		#define Rs_pin  0
+		#define D4_pin  4
+		#define D5_pin  5
+		#define D6_pin  6
+		#define D7_pin  7
 
 };
 

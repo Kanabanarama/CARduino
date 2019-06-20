@@ -10,18 +10,30 @@
  */
 
 BluetoothClass::BluetoothClass() {
-  Serial1.begin(9600);
+  btSerial = new SoftwareSerial(rxPin,txPin);
+  btSerial->begin(9600);
 }
 
 boolean BluetoothClass::isConnected() const {
-  return Serial1.available() > 0;
+  Serial.println(btSerial->available());
+  return btSerial->available() > 0;
 }
 
 char * BluetoothClass::getValue() const {
-  char bluetoothValue = 0;
-  if(BluetoothClass::isConnected()) {
-    bluetoothValue = Serial1.read();
+  if(btSerial->available()){
+    char commandbuffer[10];
+    int i = 0;
+    char params[0];
+
+    while(btSerial->available() && i< 9) {
+      commandbuffer[i++] = btSerial->read();
+      params[i++] = btSerial->read();
+    }
+    commandbuffer[i++]='\0';
+    params[i++]='\0';
+
+    return commandbuffer;
   }
 
-  return bluetoothValue;
+  return false;
 }

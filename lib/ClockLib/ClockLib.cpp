@@ -28,12 +28,13 @@ DateTime ClockClass::getTime() const {
 	return now;
 }
 
+char *time = malloc(sizeof(char)*9);
+
 char * ClockClass::getFormattedTime() const {
 	DateTime now = rtc.now();
-	char *time = malloc(sizeof(char)*20);
-	 sprintf(time, "%02d:%02d:%02d", now.hour(), now.minute(), now.second());
+	sprintf(time, "%02d:%02d:%02d", now.hour(), now.minute(), now.second());
 
-	 return time;
+	return time;
 }
 
 float ClockClass::getTemperature() const {

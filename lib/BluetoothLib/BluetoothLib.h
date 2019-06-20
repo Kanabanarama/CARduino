@@ -21,6 +21,10 @@ class BluetoothClass {
 
 	private:
 
+		const int rxPin = 12;
+		const int txPin = 11;
+		SoftwareSerial *btSerial;
+
 };
 
 #endif
