@@ -2,6 +2,7 @@
 #include <Wire.h>
 
 #include "ClockLib.h"
+#include "MeasureLib.h"
 #include "DisplayLib.h"
 #include "BluetoothLib.h"
 
@@ -13,6 +14,7 @@
  */
 
 ClockClass Clock;
+MeasureClass Measuring;
 DisplayClass Display;
 BluetoothClass Bluetooth;
 
@@ -38,10 +40,13 @@ void setup() {
 
 int padLeft = 0;
 int textLen = 0;
-int temperature;
+//int temperature;
+float temperature;
+float humidity;
 unsigned long currentMillis;
 char btData[42];
 char temperatureStr[2];
+char humidityStr[2];
 char* runningTime = malloc(sizeof(char)*4);
 
 void loop() {
@@ -58,37 +63,44 @@ void loop() {
   }
 
   // display bluetooth status
-  Display.printSymbol(DisplayClass::BLUETOOTH, 0, 1);
-
   if(Bluetooth.isConnected()) {
-    Display.printText("on ", 1, 1);
+		Display.printSymbol(DisplayClass::BLUETOOTH, 0, 1);
+    //Display.printText("on ", 1, 1);
     digitalWrite(LED_PIN, HIGH);
   } else {
-    Display.printText("off", 1, 1);
+    //Display.printText("off", 1, 1);
     digitalWrite(LED_PIN, LOW);
   }
 
   // display temperature
-  Display.printSymbol(DisplayClass::THERMOMETER, 6, 1);
+  Display.printSymbol(DisplayClass::THERMOMETER, 3, 1);
 
-  temperature = (int)round(Clock.getTemperature());
-  itoa(temperature, temperatureStr, 10);
-  //sprintf(temperatureStr, "%i", temperature);
-  Display.printText(temperatureStr, 7, 1);
-  Display.printText("\xDF", 9, 1);
-  Display.printText("C ", 10, 1);
+	temperature = Measuring.getTemperature();
+	itoa((int)round(temperature), temperatureStr, 10);
+	Display.printText(temperatureStr, 4, 1);
+	Display.printText("\xDF", 6, 1);
+  Display.printText("C ", 7, 1);
+
+	// display humidity
+  Display.printSymbol(DisplayClass::RAIN, 9, 1);
+
+	humidity = Measuring.getHumidity();
+	Serial.println(humidity);
+	itoa((int)round(humidity), humidityStr, 10);
+	Display.printText(humidityStr, 10, 1);
+	Display.printText("%", 12, 1);
 
   // display duration
-  Display.printSymbol(DisplayClass::HEART, 12, 1);
+  Display.printSymbol(DisplayClass::HEART, 14, 1);
 
   currentMillis = millis()/1000;
   sprintf(runningTime, "%04lu", currentMillis);
-  Display.printText(runningTime, 13, 1);
+  Display.printText(runningTime, 15, 1);
 
   // display date
-  Display.printSymbol(DisplayClass::CALENDAR, 18, 1);
+  Display.printSymbol(DisplayClass::CALENDAR, 20, 1);
 
-  Display.printText(Clock.getLocalDate(ClockClass::LOCALE_DE), 19, 1);
+  Display.printText(Clock.getLocalDate(ClockClass::LOCALE_DE), 21, 1);
 
   // display time
   Display.printSymbol(DisplayClass::CLOCK, 30, 1);

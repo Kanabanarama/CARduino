@@ -82,6 +82,16 @@ byte calendar[] = {
   0b11110,
   0b00000
 };
+byte rain[] = {
+  0b01001,
+  0b10010,
+  0b00100,
+  0b11001,
+  0b11010,
+  0b00100,
+  0b11001,
+  0b11010
+};
 
 char clearstring[SCREEN_LENGTH];
 
@@ -101,6 +111,7 @@ void DisplayClass::start() const {
   lcd.createChar (4, bluetooth);
   lcd.createChar (5, heart);
   lcd.createChar (6, calendar);
+  lcd.createChar (7, rain);
 
   lcd.clear();
 
@@ -130,6 +141,9 @@ void DisplayClass::printSymbol(int symbol, int x, int y) const {
       break;
     case CALENDAR:
       lcd.print (char(6));
+      break;
+    case RAIN:
+      lcd.print (char(7));
       break;
     default:
       lcd.print (char(0));

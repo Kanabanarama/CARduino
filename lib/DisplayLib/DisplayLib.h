@@ -22,6 +22,7 @@ class DisplayClass {
     static const int BLUETOOTH = 3;
 		static const int HEART = 4;
 		static const int CALENDAR = 5;
+		static const int RAIN = 6;
 
 		DisplayClass();
 

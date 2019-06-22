@@ -37,16 +37,16 @@ char * ClockClass::getFormattedTime() const {
 	return time;
 }
 
-char *dateStr = malloc(sizeof(char)*10);
+char *dateStr = malloc(sizeof(char)*7);
 
 char * ClockClass::getLocalDate(int locale) const {
 	DateTime now = rtc.now();
 	switch(locale) {
 		case ClockClass::LOCALE_DE:
-			sprintf(dateStr, "%02d.%02d.%04d", now.day(), now.month(), now.year());
+			sprintf(dateStr, "%02d.%02d.%02d", now.day(), now.month(), now.year()%100);
 			break;
 		default:
-			sprintf(dateStr, "%04d/%02d/%02d", now.year(), now.month(), now.day());
+			sprintf(dateStr, "%02d/%02d/%02d", now.year()%100, now.month(), now.day());
 			break;
 	}
 
