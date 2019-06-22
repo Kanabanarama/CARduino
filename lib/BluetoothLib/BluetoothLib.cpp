@@ -6,34 +6,43 @@
 /**
  * @file BluetoothLib.cpp
  * @author Kana (René Lantzsch)
- * @version 1.0
+ * @version 1.1
  */
+
+static bool BluetoothClass::connected = false;
 
 BluetoothClass::BluetoothClass() {
   btSerial = new SoftwareSerial(rxPin,txPin);
   btSerial->begin(9600);
+  //pinMode(statePin, INPUT);
 }
 
-boolean BluetoothClass::isConnected() const {
-  Serial.println(btSerial->available());
-  return btSerial->available() > 0;
+unsigned long duration;
+
+bool BluetoothClass::isConnected() const {
+  // the state pin on my HC-06 module does nothing at all
+  /*duration = pulseIn(statePin, HIGH);
+  if(duration > 0) {
+    return true;
+  }*/
+
+  return BluetoothClass::connected;
 }
+
+void BluetoothClass::sendValue(char * value) const {
+  btSerial->write(value);
+}
+
+char buffer[42];
+int charsRead;
 
 char * BluetoothClass::getValue() const {
-  if(btSerial->available()){
-    char commandbuffer[10];
-    int i = 0;
-    char params[0];
-
-    while(btSerial->available() && i< 9) {
-      commandbuffer[i++] = btSerial->read();
-      params[i++] = btSerial->read();
-    }
-    commandbuffer[i++]='\0';
-    params[i++]='\0';
-
-    return commandbuffer;
+  buffer[0] = '\0';
+  while(btSerial->available() > 0) {
+    BluetoothClass::connected = true;
+    charsRead = btSerial->readBytesUntil('\n', buffer, sizeof(buffer)-1);
+    buffer[charsRead-1] = '\0';
   }
 
-  return false;
+  return buffer;
 }

@@ -28,7 +28,7 @@ class DisplayClass {
     void start() const;
 		void printText(char* text, int x=0, int y=0) const;
     void printSymbol(int symbol=0, int x=0, int y=0) const;
-		void clear() const;
+	  void clear(int line = -1, char fill = ' ') const;
 
 	private:
 
@@ -45,6 +45,8 @@ class DisplayClass {
 		#define D5_pin  5
 		#define D6_pin  6
 		#define D7_pin  7
+
+		#define SCREEN_LENGTH 40
 
 };
 

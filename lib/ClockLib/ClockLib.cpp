@@ -37,6 +37,22 @@ char * ClockClass::getFormattedTime() const {
 	return time;
 }
 
+char *dateStr = malloc(sizeof(char)*10);
+
+char * ClockClass::getLocalDate(int locale) const {
+	DateTime now = rtc.now();
+	switch(locale) {
+		case ClockClass::LOCALE_DE:
+			sprintf(dateStr, "%02d.%02d.%04d", now.day(), now.month(), now.year());
+			break;
+		default:
+			sprintf(dateStr, "%04d/%02d/%02d", now.year(), now.month(), now.day());
+			break;
+	}
+
+	return dateStr;
+}
+
 float ClockClass::getTemperature() const {
 	float temp;
   int msb, lsb;

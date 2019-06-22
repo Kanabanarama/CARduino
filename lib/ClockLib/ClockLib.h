@@ -4,7 +4,7 @@
 /**
  * @file ClockLib.h
  * @author Kana (René Lantzsch)
- * @version 1.0
+ * @version 1.1
  */
 
 #include <Arduino.h>
@@ -16,12 +16,16 @@ class ClockClass {
 
 	public:
 
+		static const int LOCALE_EN = 0;
+		static const int LOCALE_DE = 1;
+
 		ClockClass();
 
 		float getTemperature() const;
 		void setTime() const;
 		DateTime getTime() const;
 		char * getFormattedTime() const;
+		char * getLocalDate(int locale) const;
 
 	private:
 

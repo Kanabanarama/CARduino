@@ -18,12 +18,17 @@ class BluetoothClass {
 
     bool isConnected() const;
 		char* getValue() const;
+		void sendValue(char * value) const;
 
 	private:
 
 		const int rxPin = 12;
 		const int txPin = 11;
+		const int statePin = 10;
+
 		SoftwareSerial *btSerial;
+
+		static bool connected;
 
 };
 

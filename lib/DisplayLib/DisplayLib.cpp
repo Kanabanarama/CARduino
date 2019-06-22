@@ -7,7 +7,7 @@
 /**
  * @file DisplayLib.cpp
  * @author Kana (René Lantzsch)
- * @version 1.1
+ * @version 1.2
  */
 
 LiquidCrystal_I2C lcd(I2C_ADDR, En_pin, Rw_pin, Rs_pin, D4_pin, D5_pin, D6_pin, D7_pin);
@@ -72,7 +72,6 @@ byte heart[] = {
   0b00000,
   0b00000
 };
-
 byte calendar[] = {
   0b00000,
   0b11110,
@@ -84,9 +83,10 @@ byte calendar[] = {
   0b00000
 };
 
+char clearstring[SCREEN_LENGTH];
 
-DisplayClass::DisplayClass() {
-}
+
+DisplayClass::DisplayClass() {}
 
 void DisplayClass::start() const {
   lcd.begin(40, 2);
@@ -137,6 +137,12 @@ void DisplayClass::printSymbol(int symbol, int x, int y) const {
   }
 }
 
-void DisplayClass::clear() const {
-  lcd.clear();
+void DisplayClass::clear(int line = -1, char fill = ' ') const {
+  if(line >= 0) {
+    lcd.setCursor(0, line);
+    memset (clearstring, fill, SCREEN_LENGTH);
+    lcd.print(clearstring);
+  } else {
+    lcd.clear();
+  }
 }
