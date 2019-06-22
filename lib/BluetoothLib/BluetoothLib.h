@@ -14,8 +14,12 @@ class BluetoothClass {
 
 	public:
 
-		BluetoothClass();
+		static const int SOFTWARE_SERIAL = 0;
+		static const int HARDWARE_SERIAL = 1;
 
+		BluetoothClass(int type = BluetoothClass::HARDWARE_SERIAL);
+
+		void BluetoothClass::start() const;
     bool isConnected() const;
 		char* getValue() const;
 		void sendValue(char * value) const;
@@ -26,8 +30,7 @@ class BluetoothClass {
 		const int txPin = 11;
 		const int statePin = 10;
 
-		SoftwareSerial *btSerial;
-
+		static bool type;
 		static bool connected;
 
 };

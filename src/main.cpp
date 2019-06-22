@@ -18,29 +18,22 @@ MeasureClass Measuring;
 DisplayClass Display;
 BluetoothClass Bluetooth;
 
-char welcomeMessage[] = "Hallo Kana -o-";
+char welcomeMessage[] = "*----------- Hallo Kana -o- -----------*"; //
 char bluetoothMessage[] = "Submit something to change the LCD text.\n";
 
-#define LED_PIN 13
-
 void setup() {
-	Serial.begin(9600); //115200
-  Serial.println("Starting...");
-
+	Serial.begin(9600);
   Clock.setTime();
 
   Display.start();
-  Display.printText(welcomeMessage, 0, 0); // Testamendvordrucke im Handschuhfach.
+  Display.printText(welcomeMessage, 0, 0);
 
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LOW);
-
-  Bluetooth.sendValue(bluetoothMessage);
+	Bluetooth.start();
+	Bluetooth.sendValue(bluetoothMessage);
 }
 
 int padLeft = 0;
 int textLen = 0;
-//int temperature;
 float temperature;
 float humidity;
 unsigned long currentMillis;
@@ -57,7 +50,6 @@ void loop() {
     textLen = strlen(btData);
     if(textLen < 40) {
       padLeft = (40 - textLen) / 2;
-      //if(padLeft % 2) padLeft--;
     }
     Display.printText(btData, padLeft, 0);
   }
@@ -65,11 +57,9 @@ void loop() {
   // display bluetooth status
   if(Bluetooth.isConnected()) {
 		Display.printSymbol(DisplayClass::BLUETOOTH, 0, 1);
-    //Display.printText("on ", 1, 1);
-    digitalWrite(LED_PIN, HIGH);
+		Display.printText("  ", 1, 1);
   } else {
-    //Display.printText("off", 1, 1);
-    digitalWrite(LED_PIN, LOW);
+		/*Display.printText("off", 1, 1);*/
   }
 
   // display temperature
@@ -85,7 +75,6 @@ void loop() {
   Display.printSymbol(DisplayClass::RAIN, 9, 1);
 
 	humidity = Measuring.getHumidity();
-	Serial.println(humidity);
 	itoa((int)round(humidity), humidityStr, 10);
 	Display.printText(humidityStr, 10, 1);
 	Display.printText("%", 12, 1);
@@ -94,6 +83,7 @@ void loop() {
   Display.printSymbol(DisplayClass::HEART, 14, 1);
 
   currentMillis = millis()/1000;
+	if(currentMillis > 9999) currentMillis = 0;
   sprintf(runningTime, "%04lu", currentMillis);
   Display.printText(runningTime, 15, 1);
 
