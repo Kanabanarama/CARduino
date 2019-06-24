@@ -3,34 +3,42 @@ Arduino-driven car display
 
 ### HARDWARE:
 
-- Arduino or compatible
+- Arduino Nano or compatible
+- Bluetooth module (HC-05/HC-06 with TTL level converter)
+- DHT22 temperature/humidity sensor
 - RTC clock module (DS3231)
-- Bluetooth module (HC-05 or ZS-040 with TTL level converter)
-- LED & 220 Ω resistor
-- 40x2 LCD display (HD44780 4002; Optrex PWB 40218)
+- 40x2 LCD display (HD44780 4002), optional with FC-113 TWI module for I²C interface
 
 ### WIRING:
 
-#### Clock module:
-
-PIN20(SDA) -> SDA
-PIN21(SCL) -> SCL
-GND        -> GND
-5V         -> VCC
-
 #### Bluetooth module:
 
-PIN18(RX)  -> TX
-PIN19(TX)  -> RX
 GND        -> GND
 5V         -> VCC
+PIN18(RX)  -> TX
+PIN19(TX)  -> RX
 
-#### LED:
+#### Clock module:
 
-PIN22      -> resistor on LED cathode
-GND        -> LED anode
+GND        -> GND
+5V         -> VCC
+A4         -> SDA
+A3         -> SCL
 
-#### Display:
+#### DHT22 sensor:
+
+GND        -> GND
+5V         -> VCC
+D9         -> DATA
+
+#### Display connected via FC-113:
+
+5V         -> VCC
+GND        -> GND
+A4         -> SDA
+A3         -> SCL
+
+#### Display connected directly:
 
 5V         -> 1
 GND        -> 2
