@@ -93,6 +93,17 @@ byte rain[] = {
   0b11010
 };
 
+byte arrow[] = {
+  0b00000,
+  0b00100,
+  0b01010,
+  0b10001,
+  0b01010,
+  0b01010,
+  0b01110,
+  0b00000
+};
+
 char clearstring[SCREEN_LENGTH];
 
 
@@ -112,6 +123,7 @@ void DisplayClass::start() const {
   lcd.createChar (5, heart);
   lcd.createChar (6, calendar);
   lcd.createChar (7, rain);
+  lcd.createChar (8, arrow);
 
   lcd.clear();
 
@@ -144,6 +156,9 @@ void DisplayClass::printSymbol(int symbol, int x, int y) const {
       break;
     case RAIN:
       lcd.print (char(7));
+      break;
+    case ARROW:
+      lcd.print (char(8));
       break;
     default:
       lcd.print (char(0));

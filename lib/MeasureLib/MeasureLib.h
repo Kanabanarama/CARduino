@@ -10,7 +10,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-#include <dht.h>
+//#include <SparkFunBME280.h>
 
 class MeasureClass {
 
@@ -18,8 +18,11 @@ class MeasureClass {
 
 		MeasureClass();
 
+    void start() const;
 		float getTemperature() const;
 		float getHumidity() const;
+		float getPressure() const;
+		float getAltitude() const;
 
 	private:
 

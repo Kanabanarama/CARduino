@@ -17,7 +17,10 @@ class ClockClass {
 	public:
 
 		static const int LOCALE_EN = 0;
-		static const int LOCALE_DE = 1;
+		static const int LOCALE_SHORT_EN = 1;
+
+		static const int LOCALE_DE = 2;
+		static const int LOCALE_SHORT_DE = 3;
 
 		ClockClass();
 

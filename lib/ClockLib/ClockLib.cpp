@@ -45,6 +45,9 @@ char * ClockClass::getLocalDate(int locale) const {
 		case ClockClass::LOCALE_DE:
 			sprintf(dateStr, "%02d.%02d.%02d", now.day(), now.month(), now.year()%100);
 			break;
+		case ClockClass::LOCALE_SHORT_DE:
+			sprintf(dateStr, "%02d.%02d", now.day(), now.month());
+			break;
 		default:
 			sprintf(dateStr, "%02d/%02d/%02d", now.year()%100, now.month(), now.day());
 			break;

@@ -23,6 +23,7 @@ class DisplayClass {
 		static const int HEART = 4;
 		static const int CALENDAR = 5;
 		static const int RAIN = 6;
+		static const int ARROW = 7;
 
 		DisplayClass();
 
