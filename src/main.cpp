@@ -5,6 +5,7 @@
 #include "MeasureLib.h"
 #include "DisplayLib.h"
 #include "BluetoothLib.h"
+#include "CanbusLib.h"
 
 /*
  *  CARduino
@@ -17,6 +18,7 @@ ClockClass Clock;
 MeasureClass Measuring;
 DisplayClass Display;
 BluetoothClass Bluetooth;
+CanbusClass Canbus;
 
 char welcomeMessage[] = "*----------- Hallo Kana -o- -----------*"; //
 char bluetoothMessage[] = "Submit something to change the LCD text.\n";
@@ -31,6 +33,8 @@ void setup() {
 
 	Bluetooth.start();
 	Bluetooth.sendValue(bluetoothMessage);
+
+	Canbus.start(Bluetooth);
 }
 
 int padLeft = 0;
@@ -46,6 +50,9 @@ char altitudeStr[4];
 char* runningTime = malloc(sizeof(char)*4);
 
 void loop() {
+	// read can data and send it over bluetooth
+	Canbus.receiveMessage(Bluetooth);
+
   // display bluetooth messages
   strcpy(btData, Bluetooth.getValue());
   if(btData[0] != '\0') {
