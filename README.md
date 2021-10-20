@@ -1,6 +1,8 @@
 # CARduino
 Arduino-driven car display
 
+![Display installed in a car](gfx/installed-car-lcd.png)
+
 ### HARDWARE:
 
 - Arduino Nano or compatible
